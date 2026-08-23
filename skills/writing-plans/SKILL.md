@@ -58,7 +58,7 @@ independently testable deliverable.
 ```markdown
 # [Feature Name] Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** [One sentence describing what this builds]
 
@@ -152,20 +152,22 @@ If you find issues, fix them inline. No need to re-review — just fix and move 
 
 ## Execution Handoff
 
-After saving the plan, offer execution choice:
+After saving the plan, offer a choice of *where* the work happens. Execution is always
+inline in this session — never dispatch subagents to implement the plan.
 
-**"Plan complete and saved to `docs/superpowers/plans/<filename>.md`. Two execution options:**
+**"Plan complete and saved to `docs/superpowers/plans/<filename>.md`. Two options:**
 
-**1. Subagent-Driven (recommended)** - I dispatch a fresh subagent per task, review between tasks, fast iteration
+**1. Isolated worktree (recommended)** - I set up a separate worktree/branch and execute there, leaving your current checkout untouched
 
-**2. Inline Execution** - Execute tasks in this session using executing-plans, batch execution with checkpoints
+**2. Current branch** - I execute right here, in the branch you're on now
 
-**Which approach?"**
+**Which one?"**
 
-**If Subagent-Driven chosen:**
-- **REQUIRED SUB-SKILL:** Use superpowers:subagent-driven-development
-- Fresh subagent per task + two-stage review
+**If Isolated worktree chosen:**
+- **REQUIRED SUB-SKILL:** Use superpowers:using-git-worktrees to create/verify the workspace
+- Then **REQUIRED SUB-SKILL:** Use superpowers:executing-plans
 
-**If Inline Execution chosen:**
+**If Current branch chosen:**
+- Do NOT create a worktree — work in the current checkout
+- If the current branch is `main`/`master`, confirm once before writing code
 - **REQUIRED SUB-SKILL:** Use superpowers:executing-plans
-- Batch execution with checkpoints for review
